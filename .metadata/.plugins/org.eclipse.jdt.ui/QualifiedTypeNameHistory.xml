@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.activiti.engine.ProcessEngineConfiguration"/>
+<fullyQualifiedTypeName name="org.activiti.engine.ProcessEngines"/>
+<fullyQualifiedTypeName name="org.activiti.engine.ProcessEngine"/>
+<fullyQualifiedTypeName name="org.activiti.engine.repository.Deployment"/>
+<fullyQualifiedTypeName name="org.activiti.engine.runtime.ProcessInstance"/>
+<fullyQualifiedTypeName name="org.activiti.engine.task.Task"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.schemagen.xmlschema.List"/>
+<fullyQualifiedTypeName name="groovyjarjarantlr.collections.List"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
+</qualifiedTypeNameHistroy>

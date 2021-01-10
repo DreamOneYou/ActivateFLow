@@ -1,0 +1,106 @@
+package cn.qingjia;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+import org.junit.Test;
+
+import com.gr.visitServer.VisitEnginer;
+import com.gr.visitServer.VisitTask;
+import com.gr.visitServer.VisitDeployment;
+public class TuiKuanProcess {
+	//启动引擎
+	VisitEnginer bushu = new VisitEnginer();
+	//找到部署流程
+	VisitDeployment ploy = new VisitDeployment();
+	VisitTask task = new VisitTask(); //访问任务表
+	///** 部署流程定义*/
+	@Test
+	public void getTask(){
+		Scanner input=new Scanner(System.in);//创建一个键盘扫描类对象
+		System.out.print("请您输入当前部署任务id:");
+		int id=input.nextInt(); //输入整型
+		//部署的序号
+		int deploymentID=(int)(Math.random()*100);
+		String name = "提出投递"+id;
+		ploy.Add(id,deploymentID, name);
+		List list = ploy.Select(id);
+		System.out.println("部署任务ID:"+list.get(1));
+		System.out.println("部署任务名字:"+list.get(2));
+
+	}
+	//启动流程实例
+	@Test
+	public void startProcessInstance(){
+		int a = 1;
+		int taskID=(int)(Math.random()*100);
+		VisitTask addTask = new VisitTask();
+		List list = bushu.Select(a, a);
+		List listploy = ploy.Select(a);
+		System.out.println("当前任务ID:"+taskID);
+		System.out.println("当前流程实例ID:"+list.get(0));
+		System.out.println("流程图:"+list.get(1)+"->"+list.get(2));
+		System.out.println("部署ID:"+listploy.get(1));
+        addTask.Add(taskID, list.get(0), list.get(4), list.get(5), list.get(3), listploy.get(1));
+	}
+
+	/** 处理当前人的个人任务*/
+	@Test
+	public void findMyPersonalTask(){
+		Scanner input=new Scanner(System.in);//创建一个键盘扫描类对象
+		System.out.print("请您输入当前处理用户姓名:");
+		String contents1=input.next(); //输入字符串型
+		
+		String assignee = contents1;
+		List tasklist = task.Select(assignee);
+		
+		if(contents1.equals("学生")) {
+			System.out.print("请您输入请假天数:");
+			int day=input.nextInt(); //输入字符串型
+			int a = Integer.parseInt(tasklist.get(1).toString());
+			List list = bushu.Select(a,day);
+		}else {
+			int a = Integer.parseInt(tasklist.get(1).toString());
+			List list = bushu.Select(a, a);
+		}
+		
+		
+		
+		System.out.println("当前任务ID:"+tasklist.get(0));
+		System.out.println("当前任务名称:"+tasklist.get(2));
+		System.out.println("当前任务办理人:"+tasklist.get(4));
+		System.out.println("当前执行对象ID:"+tasklist.get(1));
+	}
+	
+	/** 完成我的任务*/
+	@Test
+	public void competeMyPersonalTask(){
+		Scanner input=new Scanner(System.in);//创建一个键盘扫描类对象
+		System.out.print("请输入结束当前任务的用户名:");
+		String contents1=input.next(); //输入字符串型
+		String assignee = contents1;
+		
+		List listTask = task.Select(assignee);
+		int a = Integer.parseInt(listTask.get(1).toString());
+		List bushuList = bushu.Select(a, a);
+		String post = bushuList.get(2).toString();
+		if (post.equals("ends")){
+			task.Delete(assignee);
+			System.out.println("当前菜鸟包裹工作流结束");
+			System.exit(0);
+		}else {
+			a+=1;
+			task.Delete(assignee);
+			int taskID=(int)(Math.random()*100);
+			VisitTask addTask = new VisitTask();
+			List list = bushu.Select(a, a);
+	        addTask.Add(taskID, list.get(0), list.get(4), list.get(5), list.get(3), list.get(0));
+	        List bushulist = bushu.Select(a, a);
+			List listploy = ploy.Select(a);
+			System.out.println("当前任务ID:"+taskID);
+			System.out.println("当前流程实例ID:"+bushulist.get(0));
+			System.out.println("当前流程图:"+list.get(1)+"->"+list.get(2));
+		}
+	}
+}

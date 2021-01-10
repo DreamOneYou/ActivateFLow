@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.dao.GoupiaoMapper">
+    <resultMap id="BaseResultMap" type="com.spring.entity.Goupiao">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+                            <result column="piaowubianhao" property="piaowubianhao" jdbcType="VARCHAR"/>
+                                    <result column="hangbanmingcheng" property="hangbanmingcheng" jdbcType="VARCHAR"/>
+                                    <result column="chufadi" property="chufadi" jdbcType="VARCHAR"/>
+                                    <result column="mudidi" property="mudidi" jdbcType="VARCHAR"/>
+                                    <result column="qifeishijian" property="qifeishijian" jdbcType="VARCHAR"/>
+                                    <result column="dengji" property="dengji" jdbcType="VARCHAR"/>
+                                    <result column="piaojia" property="piaojia" jdbcType="DECIMAL"/>
+                                    <result column="dengjikou" property="dengjikou" jdbcType="VARCHAR"/>
+                                    <result column="jipiaoleixing" property="jipiaoleixing" jdbcType="VARCHAR"/>
+                                    <result column="goupiaorenxingming" property="goupiaorenxingming" jdbcType="VARCHAR"/>
+                                    <result column="shouji" property="shouji" jdbcType="VARCHAR"/>
+                                    <result column="shenfenzhenghao" property="shenfenzhenghao" jdbcType="VARCHAR"/>
+                                    <result column="goupiaoren" property="goupiaoren" jdbcType="VARCHAR"/>
+                                            <result column="iszf" property="iszf" jdbcType="VARCHAR"/>
+                            <result column="jipiaoid" property="jipiaoid" jdbcType="INTEGER"/>
+                <result column="addtime" property="addtime" jdbcType="VARCHAR"/>
+            </resultMap>
+    <sql id="Base_Column_List">
+        id, piaowubianhao, hangbanmingcheng, chufadi, mudidi, qifeishijian, dengji, piaojia, dengjikou, jipiaoleixing, goupiaorenxingming, shouji, shenfenzhenghao, goupiaoren, iszf, jipiaoid, addtime    </sql>
+    </mapper>

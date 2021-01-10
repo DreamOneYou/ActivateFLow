@@ -1,0 +1,206 @@
+package com.gr.visitServer;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import org.junit.Test;
+
+import com.gr.DBHerpel.DBHerpel;
+
+public class VisitEnginer {
+
+    // 连接对象
+    private Connection conn;
+    // 传递sql语句
+    private Statement stt;
+    // 结果集
+    private ResultSet set;
+
+    // 查询
+    @Test
+    public List Select(int a) {
+    	List list=new ArrayList();
+        try {
+            // 获取连接
+            conn = DBHerpel.getConnection();
+            if (conn == null)
+                return null;
+            // 定义sql语句
+            String Sql = "select * from enginer where id_ ="+a;
+            // 执行sql语句
+            stt = conn.createStatement();
+            // 返回结果集
+            set = stt.executeQuery(Sql);
+            // 获取数据
+            
+            while (set.next()) {
+            	
+//                System.out.println("pre:" + set.getString(2) + "\tpost:"
+//                        + set.getString(3) + "\trole:" + set.getString(4));
+                if(a == set.getInt(1)) {
+//                	判断哪个角色停止
+                	
+                    
+                	list.add(set.getString(1));
+                	list.add(set.getString(2));
+                	list.add(set.getString(3));
+                	list.add(set.getString(4));
+                	list.add(set.getString(5));
+                	list.add(set.getString(6));
+                	
+                	return list;
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            // 释放资源
+            try {
+                set.close();
+                conn.close();
+            } catch (Exception e2) {
+                // TODO: handle exception
+            }
+
+        }
+        return list;
+    }
+    @Test
+    public List Select1(int a,int day) {
+    	List list=new ArrayList();
+        try {
+            // 获取连接
+            conn = DBHerpel.getConnection();
+            if (conn == null)
+                return null;
+            // 定义sql语句
+            String Sql = "select * from enginer where id_ ="+a;
+            // 执行sql语句
+            stt = conn.createStatement();
+            // 返回结果集
+            set = stt.executeQuery(Sql);
+            // 获取数据
+            
+            while (set.next()) {
+            	
+                System.out.println("post:" + set.getString(2));
+                if(a == set.getInt(1)) {
+                	int d = Integer.parseInt(set.getString(2).toString());
+                	System.out.println("d:"+d);
+//                	判断哪个角色停止
+                	if(day<7) {
+//                		如果小于七天，则
+                    	String Sql1 = "UPDATE enginer SET post = 'ends' WHERE id_ = "+d+1;
+                    }else if(day>=7 & day<14) {
+                    	String Sql1 = "UPDATE enginer SET post = 'ends' WHERE id_ = "+d+2;
+                    }else {
+                    	String Sql1 = "UPDATE enginer SET post = 'ends' WHERE id_ = "+d+3;
+                    }
+                	stt = conn.createStatement();
+                    // 返回结果集
+                    set = stt.executeQuery(Sql);
+                    
+                	list.add(set.getString(1));
+                	list.add(set.getString(2));
+                	list.add(set.getString(3));
+                	list.add(set.getString(4));
+                	list.add(set.getString(5));
+                	list.add(set.getString(6));
+                	
+                	return list;
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            // 释放资源
+            try {
+                set.close();
+                conn.close();
+            } catch (Exception e2) {
+                // TODO: handle exception
+            }
+
+        }
+        return list;
+    }
+ // 使用Statement接口的executeUpdate()方法向数据库添加数据
+    @Test
+    public void Add(int id, Object name){
+        
+        try {
+            //获取连接
+            conn = DBHerpel.getConnection();
+            if(conn==null)
+            return;
+            //
+            
+            Scanner input = new Scanner(System.in);
+            
+            //定义sql语句
+            String sql = "insert into deployment values("+id+" ,'"+name+"');";
+            //获取Statement对象
+            stt = conn.createStatement();
+            //执行sql语句
+            stt.executeUpdate(sql);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            //释放资源
+            try {
+                
+                conn.close();
+                
+            } catch (Exception e2) {}
+            
+        }
+        
+        
+    }
+    
+  //使用Statement接口的executeUpdate()方法实现从数据库删除数据
+    public void Delete(){
+        try {
+            
+            //获取连接
+            conn = DBHerpel.getConnection();
+            if(conn==null)
+            return;
+            
+            //提示用户输入要删除的用户
+            System.out.print("请输入删除的用户:");
+            Scanner input = new Scanner(System.in);
+            int user = input.nextInt();
+            
+            //定义sql语句
+            String deleteSql = "DELETE FROM login WHERE user="+user+";";
+            //获取Statement对象
+            stt = conn.createStatement();
+            //执行sql语句
+            stt.executeUpdate(deleteSql);
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            //释放资源
+            try {
+                conn.close();
+                
+            } catch (Exception e2) {}
+            
+        }
+    }
+
+}

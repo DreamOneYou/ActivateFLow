@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.dao.JipiaoMapper">
+    <resultMap id="BaseResultMap" type="com.spring.entity.Jipiao">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+                            <result column="piaowubianhao" property="piaowubianhao" jdbcType="VARCHAR"/>
+                                    <result column="hangbanmingcheng" property="hangbanmingcheng" jdbcType="VARCHAR"/>
+                                    <result column="chufadi" property="chufadi" jdbcType="VARCHAR"/>
+                                    <result column="mudidi" property="mudidi" jdbcType="VARCHAR"/>
+                                    <result column="qifeishijian" property="qifeishijian" jdbcType="VARCHAR"/>
+                                    <result column="dengji" property="dengji" jdbcType="VARCHAR"/>
+                                    <result column="piaojia" property="piaojia" jdbcType="DECIMAL"/>
+                                    <result column="shengyuzuowei" property="shengyuzuowei" jdbcType="INTEGER"/>
+                                    <result column="dengjikou" property="dengjikou" jdbcType="VARCHAR"/>
+                                    <result column="jipiaoleixing" property="jipiaoleixing" jdbcType="VARCHAR"/>
+                                    <result column="beizhu" property="beizhu" jdbcType="VARCHAR"/>
+                                                <result column="addtime" property="addtime" jdbcType="VARCHAR"/>
+            </resultMap>
+    <sql id="Base_Column_List">
+        id, piaowubianhao, hangbanmingcheng, chufadi, mudidi, qifeishijian, dengji, piaojia, shengyuzuowei, dengjikou, jipiaoleixing, beizhu, addtime    </sql>
+    </mapper>

@@ -1,0 +1,97 @@
+package cn.qingjia;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
+import org.junit.Test;
+
+import com.gr.visitServer.VisitEnginer;
+import com.gr.visitServer.VisitTask;
+import com.gr.visitServer.VisitDeployment;
+public class TuiKuanProcess {
+	String ends = "ends";
+	//启动引擎
+	VisitEnginer bushu = new VisitEnginer();
+	//找到部署流程
+	VisitDeployment ploy = new VisitDeployment();
+	VisitTask task = new VisitTask(); //访问任务表
+	///** 部署流程定义*/
+	@Test
+	public void getTask() {
+		//部署的序号
+		int a = 1;
+		int deploymentID=(int)(Math.random()*100);
+		String name = "提出投递"+a;
+		ploy.Add(a,deploymentID, name);
+		List list = ploy.Select(a);
+		System.out.println("部署任务ID:"+list.get(1));
+		System.out.println("部署任务名字:"+list.get(2));
+
+	}
+	//启动流程实例
+	@Test
+	public void startProcessInstance(){
+		int a = 1;
+		int taskID=(int)(Math.random()*100);
+		
+		VisitTask addTask = new VisitTask();
+		List list = bushu.Select(a);
+		List listploy = ploy.Select(a);
+		System.out.println("当前任务ID:"+taskID);
+		System.out.println("当前流程实例ID:"+list.get(0));
+		System.out.println("流程图:"+list.get(1)+"->"+list.get(2));
+		System.out.println("部署ID:"+listploy.get(1));
+		
+        addTask.Add(taskID, list.get(0), list.get(4), list.get(5), list.get(3), listploy.get(1));
+	}
+
+	/** 处理当前人的个人任务*/
+	@Test
+	public void findMyPersonalTask(){
+		String assignee = "投递员";
+		List tasklist = task.Select(assignee);
+		System.out.println("当前任务ID:"+tasklist.get(0));
+		System.out.println("当前任务名称:"+tasklist.get(2));
+		System.out.println("当前任务办理人:"+tasklist.get(4));
+		System.out.println("当前执行对象ID:"+tasklist.get(1));
+	}
+	
+	/** 完成我的任务*/
+	@Test
+	public void competeMyPersonalTask(){
+		String assignee = "清点员";	
+		List listTask = task.Select(assignee);
+		int a = Integer.parseInt(listTask.get(1).toString());
+		List bushuList = bushu.Select(a);
+		String post = listTask.get(1).toString();
+		System.out.println("---++"+post);
+		if (post.equals('ends')){
+			System.out.println("---++"+a);
+			task.Delete(assignee);
+			System.out.println("当前菜鸟包裹工作流结束");
+			System.exit(0);
+		}else {
+			a+=1;
+			System.out.println("---"+a);
+			task.Delete(assignee);
+			
+//			int a = 3;
+			int taskID=(int)(Math.random()*100);
+			VisitTask addTask = new VisitTask();
+			List list = bushu.Select(a);
+	        addTask.Add(taskID, list.get(0), list.get(4), list.get(5), list.get(3), list.get(0));
+	        List bushulist = bushu.Select(a);
+			List listploy = ploy.Select(a);
+			System.out.println("当前任务ID:"+taskID);
+			System.out.println("当前流程实例ID:"+bushulist.get(0));
+			System.out.println("当前流程图:"+list.get(1)+"->"+list.get(2));
+		}
+	}
+	//结束流程
+	@Test
+	public void competeTask(){
+		String assignee = "清点员";
+		task.Delete(assignee);
+		System.out.println("当前菜鸟包裹工作流结束");
+	}
+}
